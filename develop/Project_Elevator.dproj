@@ -81,16 +81,28 @@
 				<Form>FrmMain</Form>
 				<FormType>dfm</FormType>
 			</DCCReference>
-			<DCCReference Include="View\FraEVInsideNavigator.pas">
+			<DCCReference Include="View\FrameEVInsideNavigator.pas">
 				<Form>EVInsideNavigator</Form>
 				<FormType>dfm</FormType>
 				<DesignClass>TFrame</DesignClass>
 			</DCCReference>
-			<DCCReference Include="View\FraFloorNavigator.pas">
-				<Form>Frame1</Form>
+			<DCCReference Include="View\FrameFloorNavigator.pas">
+				<Form>FloorNavigator</Form>
 				<FormType>dfm</FormType>
 				<DesignClass>TFrame</DesignClass>
 			</DCCReference>
+			<DCCReference Include="Common\Constants.pas"/>
+			<DCCReference Include="View\IFrameNavigator.pas"/>
+			<None Include="ModelSupport_Project_Elevator\default.txaPackage"/>
+			<None Include="ModelSupport_Project_Elevator\default.txvpck"/>
+			<None Include="ModelSupport_Project_Elevator\Constants\default.txvpck"/>
+			<None Include="ModelSupport_Project_Elevator\Project_Elevator\default.txvpck"/>
+			<None Include="ModelSupport_Project_Elevator\Constants\default.txaPackage"/>
+			<None Include="ModelSupport_Project_Elevator\FraFloorNavigator\default.txvpck"/>
+			<None Include="ModelSupport_Project_Elevator\FraFloorNavigator\default.txaPackage"/>
+			<None Include="ModelSupport_Project_Elevator\FraEVInsideNavigator\default.txvpck"/>
+			<None Include="ModelSupport_Project_Elevator\IFrameNavigator\default.txvpck"/>
+			<None Include="ModelSupport_Project_Elevator\FormMain\default.txvpck"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -148,6 +160,7 @@
 					<Platform value="Win64">False</Platform>
 					<Platform value="Win32">True</Platform>
 				</Platforms>
+				<ModelSupport>True</ModelSupport>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>
 		</ProjectExtensions>

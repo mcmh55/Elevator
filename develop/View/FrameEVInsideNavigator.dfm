@@ -51,10 +51,25 @@ object EVInsideNavigator: TEVInsideNavigator
     Height = 250
     Align = alRight
     TabOrder = 1
-    ExplicitLeft = 151
-    object comboxInsideNaviSelector: TComboBox
+    object lbCtrlName: TLabel
       Left = 1
       Top = 1
+      Width = 298
+      Height = 16
+      Align = alTop
+      Alignment = taCenter
+      Caption = '['#50648#47532#48288#51060#53552' '#45236#48512' '#52968#53944#47204']'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      ExplicitWidth = 128
+    end
+    object comboxInsideNaviSelector: TComboBox
+      Left = 1
+      Top = 17
       Width = 298
       Height = 21
       Align = alTop
@@ -66,16 +81,20 @@ object EVInsideNavigator: TEVInsideNavigator
       Top = 225
       Width = 150
       Height = 25
-      Caption = #9664'   '#9654
+      Caption = #9665' '#9655
       TabOrder = 1
+      OnMouseDown = btnOpenDoorMouseDown
+      OnMouseUp = btnOpenDoorMouseUp
     end
     object btnCloseDoor: TButton
       Left = 150
       Top = 225
       Width = 150
       Height = 25
-      Caption = #9654'   '#9664
+      Caption = #9655' '#9665
       TabOrder = 2
+      OnMouseDown = btnCloseDoorMouseDown
+      OnMouseUp = btnCloseDoorMouseUp
     end
   end
 end

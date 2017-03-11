@@ -1,6 +1,7 @@
 object FrmMain: TFrmMain
   Left = 0
   Top = 0
+  AutoSize = True
   Caption = 'FrmMain'
   ClientHeight = 667
   ClientWidth = 1499
@@ -21,17 +22,18 @@ object FrmMain: TFrmMain
     Height = 250
     Align = alBottom
     TabOrder = 0
-    ExplicitLeft = -1
+    ExplicitTop = 417
+    ExplicitWidth = 1499
     inherited pnlInsideNaviArea1: TPanel
       TabOrder = 1
     end
     inherited pnlInsideRemoteCtrl: TPanel
       Left = 1199
-      TabOrder = 2
-      ExplicitLeft = 1200
+      TabOrder = 0
+      ExplicitLeft = 1199
     end
   end
-  inline Frame1: TFrame1
+  inline FloorNavigator: TFloorNavigator
     Left = 0
     Top = 0
     Width = 1499
@@ -41,9 +43,6 @@ object FrmMain: TFrmMain
     ParentBackground = False
     ParentColor = False
     TabOrder = 1
-    ExplicitLeft = -1
-    inherited Panel1: TPanel
-      TabOrder = 1
-    end
+    ExplicitWidth = 1499
   end
 end
