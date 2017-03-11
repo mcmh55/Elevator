@@ -1,17 +1,17 @@
-unit Constants;
+Ôªøunit Constants;
 
 interface
 
 const
-  STATE_UP_OFF   = '°‚';
-  STATE_UP_ON    = '°„';
-  STATE_DOWN_OFF = '°‰';
-  STATE_DOWN_ON  = '°Â';
+  STATE_UP_OFF   = '‚ñ≥';
+  STATE_UP_ON    = '‚ñ≤';
+  STATE_DOWN_OFF = '‚ñΩ';
+  STATE_DOWN_ON  = '‚ñº';
 
-  STATE_OPEN_OFF  = '¢∑ ¢π';
-  STATE_OPEN_ON   = '¢∏ ¢∫';
-  STATE_CLOSE_OFF = '¢π ¢∑';
-  STATE_CLOSE_ON  = '¢∫ ¢∏';
+  STATE_OPEN_OFF  = '‚óÅ ‚ñ∑';
+  STATE_OPEN_ON   = '‚óÄ ‚ñ∂';
+  STATE_CLOSE_OFF = '‚ñ∑ ‚óÅ';
+  STATE_CLOSE_ON  = '‚ñ∂ ‚óÄ';
 
   FLOOR_COUNT = 20;
   BASEMENT_RANGE = 5;
