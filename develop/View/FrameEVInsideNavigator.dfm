@@ -9,6 +9,8 @@ object EVInsideNavigator: TEVInsideNavigator
     Top = 0
     Width = 200
     Height = 250
+    Color = 16744448
+    ParentBackground = False
     TabOrder = 0
     object pnlInsideNaviTop1: TPanel
       Left = 1
