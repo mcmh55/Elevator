@@ -6,7 +6,9 @@ uses
   FrameEVInsideNavigator in 'View\FrameEVInsideNavigator.pas' {EVInsideNavigator: TFrame},
   FrameFloorNavigator in 'View\FrameFloorNavigator.pas' {FloorNavigator: TFrame},
   Constants in 'Common\Constants.pas',
-  IFrameNavigator in 'View\IFrameNavigator.pas';
+  IFrameNavigator in 'View\IFrameNavigator.pas',
+  FrameEVLocationNavigator in 'View\FrameEVLocationNavigator.pas' {EVLocationNavagator: TFrame},
+  FrameTopNavigatorArea in 'View\FrameTopNavigatorArea.pas' {TopNavigatorArea: TFrame};
 
 {$R *.res}
 

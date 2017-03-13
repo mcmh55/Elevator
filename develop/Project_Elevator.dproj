@@ -93,6 +93,16 @@
 			</DCCReference>
 			<DCCReference Include="Common\Constants.pas"/>
 			<DCCReference Include="View\IFrameNavigator.pas"/>
+			<DCCReference Include="View\FrameEVLocationNavigator.pas">
+				<Form>EVLocationNavagator</Form>
+				<FormType>dfm</FormType>
+				<DesignClass>TFrame</DesignClass>
+			</DCCReference>
+			<DCCReference Include="View\FrameTopNavigatorArea.pas">
+				<Form>TopNavigatorArea</Form>
+				<FormType>dfm</FormType>
+				<DesignClass>TFrame</DesignClass>
+			</DCCReference>
 			<None Include="ModelSupport_Project_Elevator\default.txaPackage"/>
 			<None Include="ModelSupport_Project_Elevator\default.txvpck"/>
 			<None Include="ModelSupport_Project_Elevator\Constants\default.txvpck"/>

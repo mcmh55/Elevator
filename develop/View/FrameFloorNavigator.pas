@@ -10,14 +10,19 @@ type
   TFloorNavigator = class(TFrame)
   private
     FFloorNameArr: array of string;
+    FNaviPnlWidth: Integer;
+    FNaviPnlHeight: Integer;
+
     FOnBtnClick: TNotifyEvent;
 
-    procedure CreateNavigator();
-    procedure InitBGPnls(BGPnl: TPanel; Idx, Left, Top: Integer);
-    procedure InitNamePnls(NamePnl, ParentPnl: TPanel; Idx: Integer);
-    procedure InitUpBtns(UpBtn: TButton; ParentPnl: TPanel);
-    procedure InitDownBtns(DownBtn: TButton; ParentPnl: TPanel);
-    procedure InitEVStatePnl(EVStatePnl, ParentPnl: TPanel);
+    procedure InitFloorPnlSize();
+    procedure CreateNavigatorUI();
+    procedure CreateFloorBGPnls(FloorBGPnl: TPanel; Top: Integer);
+    procedure CreateNaviBGPnls(NaviBGPnl, ParentPnl: TPanel; FloorIdx, NaviIdx, Left, Top: Integer);
+    procedure CreateNamePnls(NamePnl, ParentPnl: TPanel; Idx: Integer);
+    procedure CreateUpBtns(UpBtn: TButton; ParentPnl: TPanel);
+    procedure CreateDownBtns(DownBtn: TButton; ParentPnl: TPanel);
+    procedure CreateEVStatePnl(EVStatePnl, ParentPnl: TPanel);
     procedure InitFloorNameArr();
 
   public
@@ -25,6 +30,9 @@ type
 
     procedure UpBtnClick(Sender: TObject);
     procedure DownBtnClick(Sender: TObject);
+
+    property FloorPnlWidth: Integer read FNaviPnlWidth write FNaviPnlWidth;
+    property FloorPnlHeight: Integer read FNaviPnlHeight write FNaviPnlHeight;
   end;
 
 implementation
@@ -41,76 +49,81 @@ constructor TFloorNavigator.Create(AOwner: TComponent);
 begin
   inherited;
 
+  InitFloorPnlSize();
   InitFloorNameArr();
-  CreateNavigator();
+  CreateNavigatorUI();
 end;
 
-procedure TFloorNavigator.CreateNavigator;
+procedure TFloorNavigator.CreateNavigatorUI;
 var
-  BGPnlArr, NamePnlArr, EVStatePnlArr: array of TPanel;
+  FloorBGPnlArr, NaviBGPnlArr, NamePnlArr, EVStatePnlArr: array of TPanel;
   UpBtnArr, DownBtnArr: array of TButton;
   PnlLeft, PnlTop : Integer;
-  i: Integer;
+  i, j: Integer;
 
 begin
-  SetLength(BGPnlArr, FLOOR_COUNT);
+  SetLength(FloorBGPnlArr, FLOOR_COUNT);
+  SetLength(NaviBGPnlArr, FLOOR_COUNT);
   SetLength(NamePnlArr, FLOOR_COUNT);
   SetLength(EVStatePnlArr, FLOOR_COUNT);
   SetLength(UpBtnArr, FLOOR_COUNT);
   SetLength(DownBtnArr, FLOOR_COUNT);
 
-  // 왼쪽 아래부터 생성하기 위한 초기값
-  PnlLeft := -150;
-  PnlTop  := 200;
+  PnlTop    := FNaviPnlHeight * -1;
 
   // 총 20개의 네비게이터 생성.
+  { TODO -cRefactor : i를 네비게이터 순서를 의미하는 것으로 변경 }
   for i := 0 to FLOOR_COUNT - 1 do
   begin
-    BGPnlArr[i]      := TPanel.Create(Self);
+    FloorBGPnlArr[i] := TPanel.Create(Self);
     NamePnlArr[i]    := TPanel.Create(Self);
-    EVStatePnlArr[i] := TPanel.Create(Self);
-    UpBtnArr[i]      := TButton.Create(Self);
-    DownBtnArr[i]    := TButton.Create(Self);
 
-    // 윗 줄로 위치 초기화
-    if i = (FLOOR_COUNT / 2) then
+    CreateFloorBGPnls(FloorBGPnlArr[i], PnlTop);
+    CreateNamePnls(NamePnlArr[i], FloorBGPnlArr[i], i);
+
+    PnlTop := PnlTop + FNaviPnlHeight;
+
+    { TODO -cRefactor : j를 엘리베이터 순서를 의미하는 열거형으로 만들어서 사용 }
+    for j := 0 to EV_COUNT - 1 do
     begin
-      PnlLeft := -150;
-      PnlTop  := 0;
+      NaviBGPnlArr[j]  := TPanel.Create(Self);
+      EVStatePnlArr[j] := TPanel.Create(Self);
+      UpBtnArr[j]      := TButton.Create(Self);
+      DownBtnArr[j]    := TButton.Create(Self);
+
+      CreateNaviBGPnls(NaviBGPnlArr[j], FloorBGPnlArr[i], i, j, PnlLeft, PnlTop);
+      CreateEVStatePnl(EVStatePnlArr[j], NaviBGPnlArr[j]);
+      CreateUpBtns(UpBtnArr[j], NaviBGPnlArr[j]);
+      CreateDownBtns(DownBtnArr[j], NaviBGPnlArr[j]);
+
+      PnlLeft := PnlLeft + FNaviPnlWidth;
     end;
-
-    InitBGPnls(BGPnlArr[i], i, PnlLeft, PnlTop);
-    InitNamePnls(NamePnlArr[i], BGPnlArr[i], i);
-    InitEVStatePnl(EVStatePnlArr[i], BGPnlArr[i]);
-    InitUpBtns(UpBtnArr[i], BGPnlArr[i]);
-    InitDownBtns(DownBtnArr[i], BGPnlArr[i]);
-
-    PnlLeft := PnlLeft + 150;
   end;
 end;
 
 procedure TFloorNavigator.DownBtnClick(Sender: TObject);
 begin
-  // TODO -cTest : 버튼 Sender 체크
+  { TODO -cTest : 버튼 Sender 체크 }
   (Sender as TButton).Caption := STATE_DOWN_ON;
   ShowMessage('아래 예약. ' + (Sender as TButton).Parent.Name);
 end;
 
-procedure TFloorNavigator.InitBGPnls(BGPnl: TPanel; Idx, Left, Top: Integer);
-const
-  FLOOR_AREA_WIDTH  = 150;
-  FLOOR_AREA_HEIGHT = 200;
+procedure TFloorNavigator.CreateNaviBGPnls(NaviBGPnl, ParentPnl: TPanel; FloorIdx, NaviIdx, Left, Top: Integer);
+var
+  LastIdx: Integer;
 
 begin
-  BGPnl.Parent := Self;
-  BGPnl.Width  := FLOOR_AREA_WIDTH;
-  BGPnl.Height := FLOOR_AREA_HEIGHT;
-  BGPnl.Left   := Left + FLOOR_AREA_WIDTH;
-  BGPnl.Top    := Top;
-  BGPnl.Name   := 'FloorNavi_' + FFloorNameArr[Idx];
+  NaviBGPnl.Parent := ParentPnl;
+  NaviBGPnl.Align  := alLeft;
+  NaviBGPnl.Width  := FNaviPnlWidth;
+//  NaviBGPnl.Height := FNaviPnlHeight;
+//  NaviBGPnl.Left   := Left + FNaviPnlWidth;
+//  NaviBGPnl.Top    := Top;
+  LastIdx := Length(FFloorNameArr) - 1;
+  NaviBGPnl.Name := 'FloorNavi' + '_' + FFloorNameArr[LastIdx - FloorIdx] + '_' + IntToStr(NaviIdx);
 end;
 
-procedure TFloorNavigator.InitDownBtns(DownBtn: TButton; ParentPnl: TPanel);
+procedure TFloorNavigator.CreateDownBtns(DownBtn: TButton; ParentPnl: TPanel);
 begin
   DownBtn.Parent  := ParentPnl;
   DownBtn.Align   := alBottom;
@@ -118,12 +131,20 @@ begin
   DownBtn.OnClick := DownBtnClick;
 end;
 
-procedure TFloorNavigator.InitEVStatePnl(EVStatePnl, ParentPnl: TPanel);
+procedure TFloorNavigator.CreateEVStatePnl(EVStatePnl, ParentPnl: TPanel);
 begin
   EVStatePnl.Parent     := ParentPnl;
   EVStatePnl.Align      := alClient;
   EVStatePnl.BevelOuter := bvNone;
   EVStatePnl.Caption    := 'Wait';
+end;
+
+procedure TFloorNavigator.CreateFloorBGPnls(FloorBGPnl: TPanel; Top: Integer);
+begin
+  FloorBGPnl.Parent := Self;
+  FloorBGPnl.Align  := alTop;
+  FloorBGPnl.Top    := Top;
+  FloorBGPnl.Height := FNaviPnlHeight;
 end;
 
 procedure TFloorNavigator.InitFloorNameArr;
@@ -142,15 +163,34 @@ begin
   end;
 end;
 
-procedure TFloorNavigator.InitNamePnls(NamePnl, ParentPnl: TPanel; Idx: Integer);
+procedure TFloorNavigator.InitFloorPnlSize;
 begin
-  NamePnl.Parent      := ParentPnl;
-  NamePnl.Align       := alTop;
-  NamePnl.Caption     := FFloorNameArr[Idx];
-  NamePnl.BorderStyle := bsSingle;
+  FNaviPnlWidth  := Trunc(Self.Width / 5);
+  FNaviPnlHeight := 200;
 end;
 
-procedure TFloorNavigator.InitUpBtns(UpBtn: TButton; ParentPnl: TPanel);
+procedure TFloorNavigator.CreateNamePnls(NamePnl, ParentPnl: TPanel; Idx: Integer);
+var
+  LastIdx: Integer;
+
+begin
+  NamePnl.Parent           := ParentPnl;
+  NamePnl.Align            := alTop;
+  NamePnl.BorderStyle      := bsSingle;
+  NamePnl.ParentBackground := False;
+
+  if idx >= 15 then
+  begin
+    NamePnl.Color      := clGray;
+    NamePnl.Font.Color := clWhite;
+  end;
+  NamePnl.Font.Style := [fsBold];
+
+  LastIdx := Length(FFloorNameArr) - 1;
+  NamePnl.Caption := FFloorNameArr[LastIdx - Idx];
+end;
+
+procedure TFloorNavigator.CreateUpBtns(UpBtn: TButton; ParentPnl: TPanel);
 begin
   UpBtn.Parent  := ParentPnl;
   UpBtn.Align   := alBottom;
@@ -160,7 +200,7 @@ end;
 
 procedure TFloorNavigator.UpBtnClick(Sender: TObject);
 begin
-  // TODO -cTest : 버튼 Sender 체크
+  { TODO -cTest : 버튼 Sender 체크 }
   (Sender as TButton).Caption := STATE_UP_ON;
   ShowMessage('위 예약. ' + (Sender as TButton).Parent.Name);
 end;
