@@ -1,8 +1,8 @@
 object EVInsideNavigator: TEVInsideNavigator
   Left = 0
   Top = 0
-  Width = 1500
-  Height = 250
+  Width = 1600
+  Height = 200
   TabOrder = 0
   object pnlInsideNaviArea1: TPanel
     Left = 0
@@ -45,12 +45,14 @@ object EVInsideNavigator: TEVInsideNavigator
     end
   end
   object pnlInsideRemoteCtrl: TPanel
-    Left = 1200
+    Left = 1300
     Top = 0
     Width = 300
-    Height = 250
+    Height = 200
     Align = alRight
     TabOrder = 1
+    ExplicitLeft = 1200
+    ExplicitHeight = 250
     object lbCtrlName: TLabel
       Left = 1
       Top = 1

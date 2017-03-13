@@ -1,9 +1,9 @@
-object FloorNavigator: TFloorNavigator
+object EVLocationNavagator: TEVLocationNavagator
   Left = 0
   Top = 0
-  Width = 1300
+  Width = 300
   Height = 4000
-  Color = clInactiveBorder
+  Color = clCream
   ParentBackground = False
   ParentColor = False
   TabOrder = 0

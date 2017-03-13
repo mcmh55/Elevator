@@ -13,6 +13,7 @@ const
   STATE_CLOSE_OFF = '▷ ◁';
   STATE_CLOSE_ON  = '▶ ◀';
 
+  EV_COUNT = 5;
   FLOOR_COUNT = 20;
   BASEMENT_RANGE = 5;
 
