@@ -8,8 +8,7 @@ uses
 type
   IFraNavigator = interface(IInterface)
   ['{79115A6C-0D1B-43FC-ACC4-4D3F1BAC7D1E}']
-    procedure CreateNavigator();
-    procedure CreateBGPnls(BGPnl: TPanel; Idx, Left, Top: Integer);
+    procedure CreateNavigatorUI();
   end;
 
 implementation

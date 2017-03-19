@@ -4,12 +4,13 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
+  Arrays;
 
 type
   TFloorNavigator = class(TFrame)
   private
-    FFloorNameArr: array of string;
+    FFloorNameArr: Arrays.TStringArray;
     FNaviPnlWidth: Integer;
     FNaviPnlHeight: Integer;
 
@@ -25,12 +26,14 @@ type
 
   public
     constructor Create(AOwner: TComponent); override;
+    function GetInstance(): TFloorNavigator;
 
     procedure UpBtnClick(Sender: TObject);
     procedure DownBtnClick(Sender: TObject);
 
     property FloorPnlWidth: Integer read FNaviPnlWidth write FNaviPnlWidth;
     property FloorPnlHeight: Integer read FNaviPnlHeight write FNaviPnlHeight;
+    property FloorNameArr: Arrays.TStringArray read FFloorNameArr;
   end;
 
 implementation
@@ -47,6 +50,7 @@ constructor TFloorNavigator.Create(AOwner: TComponent);
 begin
   inherited;
 
+  { TODO -cRefactoring : FrameEVNavigator에서 GetInstance로 생성된 뒤 또 호출되는 것은 막아야 함 }
   InitFloorPnlSize();
   InitFloorNameArr();
   CreateNavigatorUI();
@@ -107,6 +111,14 @@ begin
   ShowMessage('아래 예약. ' + (Sender as TButton).Parent.Name);
 end;
 
+function TFloorNavigator.GetInstance: TFloorNavigator;
+begin
+  if Assigned(Self) then
+    Result := Self
+  else
+    Result := TFloorNavigator.Create(Self);
+end;
+
 procedure TFloorNavigator.CreateNaviBGPnls(NaviBGPnl, ParentPnl: TPanel; FloorIdx, NaviIdx, Left, Top: Integer);
 var
   LastIdx: Integer;
@@ -150,6 +162,7 @@ var
 begin
   SetLength(FFloorNameArr, FLOOR_COUNT);
 
+  // ..., B2F, B1F, 1F, 2F, ...
   for i := 0 to Length(FFloorNameArr) - 1 do
   begin
     if i < BASEMENT_RANGE then
@@ -161,7 +174,7 @@ end;
 
 procedure TFloorNavigator.InitFloorPnlSize;
 begin
-  FNaviPnlWidth  := Trunc(Self.Width / 5);
+  FNaviPnlWidth  := Trunc(Self.Width / EV_COUNT);
   FNaviPnlHeight := 200;
 end;
 
