@@ -13,8 +13,6 @@ type
     FNaviPnlWidth: Integer;
     FNaviPnlHeight: Integer;
 
-    FOnBtnClick: TNotifyEvent;
-
     procedure InitFloorPnlSize();
     procedure CreateNavigatorUI();
     procedure CreateFloorBGPnls(FloorBGPnl: TPanel; Top: Integer);
@@ -69,10 +67,11 @@ begin
   SetLength(UpBtnArr, FLOOR_COUNT);
   SetLength(DownBtnArr, FLOOR_COUNT);
 
-  PnlTop    := FNaviPnlHeight * -1;
+  PnlLeft := 0;
+  PnlTop  := FNaviPnlHeight * -1;
 
   // 총 20개의 네비게이터 생성.
-  { TODO -cRefactor : i를 네비게이터 순서를 의미하는 것으로 변경 }
+  { TODO -cRefactoring : i를 네비게이터 순서를 의미하는 것으로 변경 }
   for i := 0 to FLOOR_COUNT - 1 do
   begin
     FloorBGPnlArr[i] := TPanel.Create(Self);
@@ -83,7 +82,7 @@ begin
 
     PnlTop := PnlTop + FNaviPnlHeight;
 
-    { TODO -cRefactor : j를 엘리베이터 순서를 의미하는 열거형으로 만들어서 사용 }
+    { TODO -cRefactoring : j를 엘리베이터 순서를 의미하는 열거형으로 만들어서 사용 }
     for j := 0 to EV_COUNT - 1 do
     begin
       NaviBGPnlArr[j]  := TPanel.Create(Self);
@@ -116,9 +115,6 @@ begin
   NaviBGPnl.Parent := ParentPnl;
   NaviBGPnl.Align  := alLeft;
   NaviBGPnl.Width  := FNaviPnlWidth;
-//  NaviBGPnl.Height := FNaviPnlHeight;
-//  NaviBGPnl.Left   := Left + FNaviPnlWidth;
-//  NaviBGPnl.Top    := Top;
   LastIdx := Length(FFloorNameArr) - 1;
   NaviBGPnl.Name := 'FloorNavi' + '_' + FFloorNameArr[LastIdx - FloorIdx] + '_' + IntToStr(NaviIdx);
 end;

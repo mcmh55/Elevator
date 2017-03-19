@@ -34,7 +34,7 @@ type
     ///   배경 Panel 셋팅
     /// </summary>
     {$ENDREGION}
-    procedure InitBGPnls(BGPnl: TPanel; Idx, Left, Top: Integer);
+    procedure CreateBGPnls(BGPnl: TPanel; Idx, Left, Top: Integer);
     
   public
     constructor Create(AOwner: TComponent); override;
@@ -82,7 +82,7 @@ begin
 
 end;
 
-procedure TEVInsideNavigator.InitBGPnls(BGPnl: TPanel; Idx, Left, Top: Integer);
+procedure TEVInsideNavigator.CreateBGPnls(BGPnl: TPanel; Idx, Left, Top: Integer);
 begin
 
 end;
