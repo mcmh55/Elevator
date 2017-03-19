@@ -21,14 +21,11 @@ object FrmMain: TFrmMain
     Height = 200
     Align = alBottom
     TabOrder = 0
-    inherited pnlInsideNaviArea1: TPanel
-      TabOrder = 1
-    end
+    ExplicitTop = 617
+    ExplicitWidth = 1599
     inherited pnlInsideRemoteCtrl: TPanel
       Left = 1299
-      TabOrder = 2
-      ExplicitLeft = 1300
-      ExplicitHeight = 200
+      ExplicitLeft = 1299
     end
   end
   inline TopNavigatorArea: TTopNavigatorArea
@@ -36,13 +33,12 @@ object FrmMain: TFrmMain
     Top = 0
     Width = 1600
     Height = 600
+    AutoScroll = True
     TabOrder = 1
     ExplicitLeft = -1
-    inherited FloorNavigator: TFloorNavigator
-      TabOrder = 2
-    end
     inherited EVLocationNavagator: TEVLocationNavagator
-      TabOrder = 3
+      Left = 1297
+      ExplicitLeft = 1297
     end
   end
 end

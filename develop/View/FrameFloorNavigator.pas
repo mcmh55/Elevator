@@ -4,16 +4,15 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
+  Arrays;
 
 type
   TFloorNavigator = class(TFrame)
   private
-    FFloorNameArr: array of string;
+    FFloorNameArr: Arrays.TStringArray;
     FNaviPnlWidth: Integer;
     FNaviPnlHeight: Integer;
-
-    FOnBtnClick: TNotifyEvent;
 
     procedure InitFloorPnlSize();
     procedure CreateNavigatorUI();
@@ -27,12 +26,14 @@ type
 
   public
     constructor Create(AOwner: TComponent); override;
+    function GetInstance(): TFloorNavigator;
 
     procedure UpBtnClick(Sender: TObject);
     procedure DownBtnClick(Sender: TObject);
 
     property FloorPnlWidth: Integer read FNaviPnlWidth write FNaviPnlWidth;
     property FloorPnlHeight: Integer read FNaviPnlHeight write FNaviPnlHeight;
+    property FloorNameArr: Arrays.TStringArray read FFloorNameArr;
   end;
 
 implementation
@@ -49,6 +50,7 @@ constructor TFloorNavigator.Create(AOwner: TComponent);
 begin
   inherited;
 
+  { TODO -cRefactoring : FrameEVNavigator에서 GetInstance로 생성된 뒤 또 호출되는 것은 막아야 함 }
   InitFloorPnlSize();
   InitFloorNameArr();
   CreateNavigatorUI();
@@ -69,10 +71,11 @@ begin
   SetLength(UpBtnArr, FLOOR_COUNT);
   SetLength(DownBtnArr, FLOOR_COUNT);
 
-  PnlTop    := FNaviPnlHeight * -1;
+  PnlLeft := 0;
+  PnlTop  := FNaviPnlHeight * -1;
 
   // 총 20개의 네비게이터 생성.
-  { TODO -cRefactor : i를 네비게이터 순서를 의미하는 것으로 변경 }
+  { TODO -cRefactoring : i를 네비게이터 순서를 의미하는 것으로 변경 }
   for i := 0 to FLOOR_COUNT - 1 do
   begin
     FloorBGPnlArr[i] := TPanel.Create(Self);
@@ -83,7 +86,7 @@ begin
 
     PnlTop := PnlTop + FNaviPnlHeight;
 
-    { TODO -cRefactor : j를 엘리베이터 순서를 의미하는 열거형으로 만들어서 사용 }
+    { TODO -cRefactoring : j를 엘리베이터 순서를 의미하는 열거형으로 만들어서 사용 }
     for j := 0 to EV_COUNT - 1 do
     begin
       NaviBGPnlArr[j]  := TPanel.Create(Self);
@@ -108,6 +111,14 @@ begin
   ShowMessage('아래 예약. ' + (Sender as TButton).Parent.Name);
 end;
 
+function TFloorNavigator.GetInstance: TFloorNavigator;
+begin
+  if Assigned(Self) then
+    Result := Self
+  else
+    Result := TFloorNavigator.Create(Self);
+end;
+
 procedure TFloorNavigator.CreateNaviBGPnls(NaviBGPnl, ParentPnl: TPanel; FloorIdx, NaviIdx, Left, Top: Integer);
 var
   LastIdx: Integer;
@@ -116,9 +127,6 @@ begin
   NaviBGPnl.Parent := ParentPnl;
   NaviBGPnl.Align  := alLeft;
   NaviBGPnl.Width  := FNaviPnlWidth;
-//  NaviBGPnl.Height := FNaviPnlHeight;
-//  NaviBGPnl.Left   := Left + FNaviPnlWidth;
-//  NaviBGPnl.Top    := Top;
   LastIdx := Length(FFloorNameArr) - 1;
   NaviBGPnl.Name := 'FloorNavi' + '_' + FFloorNameArr[LastIdx - FloorIdx] + '_' + IntToStr(NaviIdx);
 end;
@@ -154,6 +162,7 @@ var
 begin
   SetLength(FFloorNameArr, FLOOR_COUNT);
 
+  // ..., B2F, B1F, 1F, 2F, ...
   for i := 0 to Length(FFloorNameArr) - 1 do
   begin
     if i < BASEMENT_RANGE then
@@ -165,7 +174,7 @@ end;
 
 procedure TFloorNavigator.InitFloorPnlSize;
 begin
-  FNaviPnlWidth  := Trunc(Self.Width / 5);
+  FNaviPnlWidth  := Trunc(Self.Width / EV_COUNT);
   FNaviPnlHeight := 200;
 end;
 
