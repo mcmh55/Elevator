@@ -81,11 +81,6 @@
 				<Form>FrmMain</Form>
 				<FormType>dfm</FormType>
 			</DCCReference>
-			<DCCReference Include="View\FrameEVInsideNavigator.pas">
-				<Form>EVInsideNavigator</Form>
-				<FormType>dfm</FormType>
-				<DesignClass>TFrame</DesignClass>
-			</DCCReference>
 			<DCCReference Include="View\FrameFloorNavigator.pas">
 				<Form>FloorNavigator</Form>
 				<FormType>dfm</FormType>
@@ -101,6 +96,11 @@
 			<DCCReference Include="View\FrameTopNavigatorArea.pas">
 				<Form>TopNavigatorArea</Form>
 				<FormType>dfm</FormType>
+				<DesignClass>TFrame</DesignClass>
+			</DCCReference>
+			<DCCReference Include="Common\Arrays.pas"/>
+			<DCCReference Include="View\FrameEVNavigator.pas">
+				<Form>EVInsideNavigator</Form>
 				<DesignClass>TFrame</DesignClass>
 			</DCCReference>
 			<None Include="ModelSupport_Project_Elevator\default.txaPackage"/>

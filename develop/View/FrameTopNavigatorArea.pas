@@ -24,8 +24,6 @@ implementation
 
 { TTopNavigatorArea }
 
-{ TTopNavigatorArea }
-
 constructor TTopNavigatorArea.Create(AOwner: TComponent);
 begin
   inherited;

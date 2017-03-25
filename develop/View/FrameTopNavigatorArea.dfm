@@ -6,15 +6,15 @@ object TopNavigatorArea: TTopNavigatorArea
   AutoScroll = True
   TabOrder = 0
   inline EVLocationNavagator: TEVLocationNavagator
-    Left = 1298
+    Left = 1297
     Top = 0
     Width = 283
-    Height = 600
+    Height = 4000
     Color = clCream
     ParentBackground = False
     ParentColor = False
     TabOrder = 0
-    ExplicitLeft = 1298
+    ExplicitLeft = 1297
     ExplicitWidth = 283
   end
   inline FloorNavigator: TFloorNavigator
