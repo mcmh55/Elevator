@@ -1,17 +1,16 @@
 object EVInsideNavigator: TEVInsideNavigator
   Left = 0
   Top = 0
-  Width = 1300
+  Width = 1600
   Height = 200
   TabOrder = 0
   object pnlInsideRemoteCtrl: TPanel
-    Left = 1000
+    Left = 1300
     Top = 0
     Width = 300
     Height = 200
     Align = alRight
     TabOrder = 0
-    ExplicitLeft = 1300
     object lbCtrlName: TLabel
       Left = 1
       Top = 1
@@ -35,7 +34,6 @@ object EVInsideNavigator: TEVInsideNavigator
       Height = 130
       Align = alTop
       TabOrder = 0
-      ExplicitTop = 34
     end
     object pnlDoorBtn: TPanel
       Left = 1
@@ -44,11 +42,10 @@ object EVInsideNavigator: TEVInsideNavigator
       Height = 30
       Align = alBottom
       TabOrder = 1
-      ExplicitTop = 158
       object btnOpenDoor: TButton
         Left = 1
         Top = 1
-        Width = 175
+        Width = 145
         Height = 28
         Align = alLeft
         TabOrder = 0
@@ -64,7 +61,6 @@ object EVInsideNavigator: TEVInsideNavigator
         TabOrder = 1
         OnMouseDown = btnCloseDoorMouseDown
         OnMouseUp = btnCloseDoorMouseUp
-        ExplicitLeft = 162
       end
     end
     object cbbEVSelector: TComboBox
@@ -75,8 +71,6 @@ object EVInsideNavigator: TEVInsideNavigator
       Align = alTop
       Style = csDropDownList
       TabOrder = 2
-      ExplicitTop = 1
-      ExplicitWidth = 296
     end
   end
 end

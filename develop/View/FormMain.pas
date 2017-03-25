@@ -9,8 +9,8 @@ uses
 
 type
   TFrmMain = class(TForm)
-    EVInsideNavigator: TEVInsideNavigator;
     TopNavigatorArea: TTopNavigatorArea;
+    EVInsideNavigator: TEVInsideNavigator;
   private
     { Private declarations }
   public

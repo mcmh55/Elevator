@@ -113,9 +113,6 @@ begin
 end;
 
 procedure TEVInsideNavigator.CreateNavigatorUI;
-const
-  DISPLAY_PANEL_COUNT = 4;
-
 var
   EVBGPnlArr, NamePnlArr, MoveStatePnlArr, LocationPnlArr, WeightStatePnlArr: array of TPanel;
   LocationPnlLeft, WeightStatePnlTop: Integer;
@@ -216,7 +213,7 @@ end;
 
 procedure TEVInsideNavigator.InitEVPnlSize;
 begin
-  FEVPnlWidth  := Trunc(Self.Width / EV_COUNT);
+  FEVPnlWidth  := Trunc((Self.Width - pnlInsideRemoteCtrl.Width) / EV_COUNT);
   FEVPnlHeight := 200;
 end;
 
