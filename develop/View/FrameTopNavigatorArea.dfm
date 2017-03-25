@@ -5,6 +5,8 @@ object TopNavigatorArea: TTopNavigatorArea
   Height = 600
   AutoScroll = True
   TabOrder = 0
+  OnMouseWheelDown = FrameMouseWheelDown
+  OnMouseWheelUp = FrameMouseWheelUp
   inline EVLocationNavagator: TEVLocationNavagator
     Left = 1297
     Top = 0
@@ -16,6 +18,9 @@ object TopNavigatorArea: TTopNavigatorArea
     TabOrder = 0
     ExplicitLeft = 1297
     ExplicitWidth = 283
+    inherited lblNaviName: TLabel
+      Width = 283
+    end
   end
   inline FloorNavigator: TFloorNavigator
     Left = 0

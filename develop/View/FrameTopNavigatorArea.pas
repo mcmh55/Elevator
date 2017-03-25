@@ -11,8 +11,15 @@ type
   TTopNavigatorArea = class(TFrame)
     EVLocationNavagator: TEVLocationNavagator;
     FloorNavigator: TFloorNavigator;
+    procedure FrameMouseWheelDown(Sender: TObject; Shift: TShiftState;
+      MousePos: TPoint; var Handled: Boolean);
+    procedure FrameMouseWheelUp(Sender: TObject; Shift: TShiftState;
+      MousePos: TPoint; var Handled: Boolean);
 
   private
+
+  const
+    SCROLL_POSITION = 20;
 
   public
     constructor Create(AOwner: TComponent); override;
@@ -29,4 +36,16 @@ begin
   inherited;
 
 end;
+procedure TTopNavigatorArea.FrameMouseWheelDown(Sender: TObject;
+  Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
+begin
+  VertScrollBar.Position := VertScrollBar.Position + SCROLL_POSITION;
+end;
+
+procedure TTopNavigatorArea.FrameMouseWheelUp(Sender: TObject;
+  Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
+begin
+  VertScrollBar.Position := VertScrollBar.Position - SCROLL_POSITION;
+end;
+
 end.
