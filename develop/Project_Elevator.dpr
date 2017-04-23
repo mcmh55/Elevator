@@ -9,7 +9,8 @@ uses
   FrameEVLocationNavigator in 'View\FrameEVLocationNavigator.pas' {EVLocationNavagator: TFrame},
   FrameTopNavigatorArea in 'View\FrameTopNavigatorArea.pas' {TopNavigatorArea: TFrame},
   Arrays in 'Common\Arrays.pas',
-  FrameEVNavigator in 'View\FrameEVNavigator.pas' {EVInsideNavigator: TFrame};
+  FrameEVNavigator in 'View\FrameEVNavigator.pas' {EVInsideNavigator: TFrame},
+  EV.Model.Bean in 'Model\EV.Model.Bean.pas';
 
 {$R *.res}
 
