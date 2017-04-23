@@ -103,6 +103,7 @@
 				<Form>EVInsideNavigator</Form>
 				<DesignClass>TFrame</DesignClass>
 			</DCCReference>
+			<DCCReference Include="Model\EV.Model.Bean.pas"/>
 			<None Include="ModelSupport_Project_Elevator\default.txaPackage"/>
 			<None Include="ModelSupport_Project_Elevator\default.txvpck"/>
 			<None Include="ModelSupport_Project_Elevator\Constants\default.txvpck"/>
@@ -113,6 +114,12 @@
 			<None Include="ModelSupport_Project_Elevator\FraEVInsideNavigator\default.txvpck"/>
 			<None Include="ModelSupport_Project_Elevator\IFrameNavigator\default.txvpck"/>
 			<None Include="ModelSupport_Project_Elevator\FormMain\default.txvpck"/>
+			<None Include="ModelSupport_Project_Elevator\EV\Model\Bean\default.txaPackage"/>
+			<None Include="ModelSupport_Project_Elevator\EV\default.txaPackage"/>
+			<None Include="ModelSupport_Project_Elevator\EV\Model\default.txaPackage"/>
+			<None Include="ModelSupport_Project_Elevator\EV\default.txvpck"/>
+			<None Include="ModelSupport_Project_Elevator\EV\Model\default.txvpck"/>
+			<None Include="ModelSupport_Project_Elevator\EV\Model\Bean\default.txvpck"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
