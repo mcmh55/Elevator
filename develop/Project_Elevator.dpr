@@ -10,7 +10,12 @@ uses
   FrameTopNavigatorArea in 'View\FrameTopNavigatorArea.pas' {TopNavigatorArea: TFrame},
   Arrays in 'Common\Arrays.pas',
   FrameEVNavigator in 'View\FrameEVNavigator.pas' {EVInsideNavigator: TFrame},
-  EV.Model.Bean in 'Model\EV.Model.Bean.pas';
+  EleVator.Model.Bean in 'Model\EleVator.Model.Bean.pas',
+  FormMain.Presenter in 'Presenter\FormMain.Presenter.pas',
+  Elevator.Presenter in 'Presenter\Elevator.Presenter.pas',
+  FormMain.Model.Logic in 'Model\FormMain.Model.Logic.pas',
+  FormMain.Model.Bean in 'Model\FormMain.Model.Bean.pas',
+  EleVator.Model.Logic in 'Model\EleVator.Model.Logic.pas';
 
 {$R *.res}
 

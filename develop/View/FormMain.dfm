@@ -13,6 +13,7 @@ object FrmMain: TFrmMain
   Font.Style = []
   OldCreateOrder = False
   Position = poDesigned
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   inline TopNavigatorArea: TTopNavigatorArea
@@ -22,6 +23,11 @@ object FrmMain: TFrmMain
     Height = 600
     AutoScroll = True
     TabOrder = 0
+    inherited EVLocationNavagator: TEVLocationNavagator
+      inherited lblNaviName: TLabel
+        Width = 283
+      end
+    end
   end
   inline EVInsideNavigator: TEVInsideNavigator
     Left = 0
