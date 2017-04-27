@@ -1,21 +1,23 @@
-unit EV.Model.Bean;
+ï»¿unit EleVator.Model.Bean;
 
 interface
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  Constants;
 
 type
   EEVBeanException = class(Exception);
 
   TFloorMoveRange = (fmrAll, fmrLow, fmrHigh, fmrOdd, fmrEven);
+  TEVTypeList = array of TFloorMoveRange;
 
   TMoveState = (msStop, msUp, msDown);
 
   TWorkState = (wsNormal, wsFull, wsBroken, wsRepair);
 
   TEVBean = record
-  private
+  strict private
     FFloorMoveRange: TFloorMoveRange;
     FCurrentFloor: Double;
     FSpeed: Double;
@@ -39,8 +41,7 @@ type
     procedure InitHighFloorType();
     procedure InitOddFloorType();
     procedure InitEvenFloorType();
-  private const
-    INVALID_INIT_TYPE = 'ÃÊ±âÈ­ ÇÒ ¼ö ¾ø´Â Å¸ÀÔ';
+
   public
     procedure Initialize(FloorMoveRange: TFloorMoveRange);
 
@@ -54,7 +55,20 @@ type
     property DoorState: Boolean read FDoorOpenState write SetDoorState;
   end;
 
+  TEVBeans = record
+  private type
+    TBeansArray = array of TEVBean;
+  strict private
+    class var FEVList: TBeansArray;
+  public
+    class procedure InitEVBeans(EVTypeList: TEVTypeList); static;
+
+    class property BeanList: TBeansArray read FEVList;
+  end;
+
 implementation
+
+const INVALID_INIT_TYPE = 'ì´ˆê¸°í™” í•  ìˆ˜ ì—†ëŠ” íƒ€ìž…';
 
 { TEVBean }
 
@@ -148,6 +162,27 @@ end;
 procedure TEVBean.SetWorkState(const Value: TWorkState);
 begin
   FWorkState := Value;
+end;
+
+{ TEVBeans }
+
+class procedure TEVBeans.InitEVBeans(EVTypeList: TEVTypeList);
+var
+  i: Integer;
+begin
+  SetLength(FEVList, EV_COUNT);
+  for i := 0 to Length(FEVList) - 1 do
+  begin
+    case EVTypeList[i] of
+      fmrAll: FEVList[i].Initialize(fmrAll);
+      fmrLow: FEVList[i].Initialize(fmrLow);
+      fmrHigh: FEVList[i].Initialize(fmrHigh);
+      fmrOdd: FEVList[i].Initialize(fmrOdd);
+      fmrEven: FEVList[i].Initialize(fmrEven);
+    else
+      raise EEVBeanException.Create(INVALID_INIT_TYPE);
+    end;
+  end;
 end;
 
 end.

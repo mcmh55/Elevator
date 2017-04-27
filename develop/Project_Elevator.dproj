@@ -103,7 +103,12 @@
 				<Form>EVInsideNavigator</Form>
 				<DesignClass>TFrame</DesignClass>
 			</DCCReference>
-			<DCCReference Include="Model\EV.Model.Bean.pas"/>
+			<DCCReference Include="Model\EleVator.Model.Bean.pas"/>
+			<DCCReference Include="Presenter\FormMain.Presenter.pas"/>
+			<DCCReference Include="Presenter\Elevator.Presenter.pas"/>
+			<DCCReference Include="Model\FormMain.Model.Logic.pas"/>
+			<DCCReference Include="Model\FormMain.Model.Bean.pas"/>
+			<DCCReference Include="Model\EleVator.Model.Logic.pas"/>
 			<None Include="ModelSupport_Project_Elevator\default.txaPackage"/>
 			<None Include="ModelSupport_Project_Elevator\default.txvpck"/>
 			<None Include="ModelSupport_Project_Elevator\Constants\default.txvpck"/>
